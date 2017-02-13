@@ -1,19 +1,20 @@
 import requests as r
+from tkinter import ttk
 from tkinter import filedialog
 from tkinter import *
 import time
 class GettrackData:
     track = []
     root = Tk()
+    root.withdraw()
     jdata =[ ]
     rdict = {'activityType': '', 'dateWithNoSuffix': '', 'deliveryStatus': '', 'origin': '', 'time': '', 'orgCode': '',
              'mode': ''}
     def openfile () :
-        path = filedialog.askopenfilename(filetype=(("txt","*.txt"),("All Files","*.*"))) #Open File to read having list of tracking ID
-        file = open(path,'r')
+        path = filedialog.askopenfilename(filetype=(("txt", "*.txt"), ("All Files", "*.*")))
+        file = open(path, 'r')
         return file
-
-    def readfile():         #Read Opened File
+    def readfile(self):         #Read Opened File
         for i in GettrackData.openfile():
             GettrackData.track.append(i.strip("\n"))
         return GettrackData.track
@@ -37,8 +38,8 @@ class GettrackData:
                     wfile.write("\n"+GettrackData.rdict['dateWithNoSuffix']+" "+GettrackData.rdict['time']
                           +" "+GettrackData.rdict['activityType']+"("+GettrackData.rdict['origin']+") "+GettrackData.rdict['deliveryStatus'])"""
                 wfile.close()
-
-rcords=GettrackData.readfile()
+Getdat=GettrackData()
+rcords=Getdat.readfile()
 for i in range(len(rcords)):
     print("\n"+"Record for  " + GettrackData.track[i])
     GettrackData.getjsondata(i)
